@@ -63,15 +63,15 @@ namespace OnboardingApp.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 //Get role assigned to the user
-                var role = await _userManager.GetRolesAsync(user);
-                IdentityOptions _options = new IdentityOptions();
+               // var role = await _userManager.GetRolesAsync(user);
+                //IdentityOptions _options = new IdentityOptions();
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("UserID",user.Id.ToString()),
-                        new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
+                       // new Claim(_options.ClaimsIdentity.RoleClaimType,role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
